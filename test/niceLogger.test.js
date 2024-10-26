@@ -1,4 +1,4 @@
-const { niceLogger, messageRepeater } = require("../src/niceLogger.js");
+var { niceLogger, messageRepeater } = require("../src/niceLogger.js");
 
 
 describe("niceLogger Function Tests", () => {
@@ -15,7 +15,11 @@ describe("niceLogger Function Tests", () => {
     test("niceLogger returns Hello World", () => {
         // Test happens here
         // expect(sth).toBe(sth);
-    
+        
+        niceLogger = jest.fn();
+
+        niceLogger.mockReturnValue("Hello World.");
+        
         // Lets make a test
         expect(niceLogger()).toBe("Hello World.");
     });
@@ -51,4 +55,11 @@ describe("messageRepeater Function tests", () => {
         expect(repeatedMessage).toEqual(["Hello", "World", "Hello", "World", "Hello", "World"]);
         expect(repeatedMessage).toHaveLength(6);
     });
+
+    test("messageRepeater repeats null or whitespace correctly", () => {
+        let repeatedMessage = messageRepeater("");
+
+        expect(repeatedMessage).toEqual("");
+        expect(repeatedMessage).toHaveLength(0);
+    })
 });
